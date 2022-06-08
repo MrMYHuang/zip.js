@@ -1,4 +1,4 @@
-declare module "@zip.js/zip.js" {
+declare module "zip.js-myh" {
 
     export function configure(configuration: ConfigurationOptions): void;
 
@@ -106,6 +106,7 @@ declare module "@zip.js/zip.js" {
     export class ZipReader {
         constructor(reader: Reader, options?: ZipReaderConstructorOptions);
         getEntries(options?: ZipReaderGetEntriesOptions): Promise<Entry[]>;
+        *getEntry(options?: ZipReaderGetEntriesOptions): AsyncGenerator<Entry, boolean>;
         close(): Promise<any>;
     }
 

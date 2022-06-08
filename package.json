@@ -1,9 +1,9 @@
 {
-    "name": "@zip.js/zip.js",
+    "name": "zip.js-myh",
     "description": "A JavaScript library to zip and unzip files in the browser and Deno",
     "author": "Gildas Lormeau",
     "license": "BSD-3-Clause",
-    "version": "2.4.12",
+    "version": "2.4.14",
     "type": "module",
     "keywords": [
         "zip",
