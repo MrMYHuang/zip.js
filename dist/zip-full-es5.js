@@ -17496,7 +17496,7 @@
 
         var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         return _wrapAsyncGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-          var zipReader, reader, endOfDirectoryInfo, endOfDirectoryView, directoryDataLength, directoryDataOffset, filesLength, prependedDataLength, endOfDirectoryLocatorArray, endOfDirectoryLocatorView, endOfDirectoryArray, _endOfDirectoryView, expectedDirectoryDataOffset, originalDirectoryDataOffset, offset, directoryArray, directoryView, _expectedDirectoryDataOffset, _originalDirectoryDataOffset, _loop, indexFile;
+          var zipReader, reader, endOfDirectoryInfo, endOfDirectoryView, directoryDataLength, directoryDataOffset, prependedDataLength, endOfDirectoryLocatorArray, endOfDirectoryLocatorView, endOfDirectoryArray, _endOfDirectoryView, expectedDirectoryDataOffset, originalDirectoryDataOffset, offset, directoryArray, directoryView, _expectedDirectoryDataOffset, _originalDirectoryDataOffset, _loop, indexFile;
 
           return _regeneratorRuntime().wrap(function _callee$(_context2) {
             while (1) {
@@ -17539,10 +17539,10 @@
                   endOfDirectoryView = getDataView$1(endOfDirectoryInfo);
                   directoryDataLength = getUint32(endOfDirectoryView, 12);
                   directoryDataOffset = getUint32(endOfDirectoryView, 16);
-                  filesLength = getUint16(endOfDirectoryView, 8);
+                  _this.filesLength = getUint16(endOfDirectoryView, 8);
                   prependedDataLength = 0;
 
-                  if (!(directoryDataOffset == MAX_32_BITS || directoryDataLength == MAX_32_BITS || filesLength == MAX_16_BITS)) {
+                  if (!(directoryDataOffset == MAX_32_BITS || directoryDataLength == MAX_32_BITS || _this.filesLength == MAX_16_BITS)) {
                     _context2.next = 43;
                     break;
                   }
@@ -17595,7 +17595,7 @@
                   throw new Error(ERR_EOCDR_LOCATOR_ZIP64_NOT_FOUND);
 
                 case 40:
-                  filesLength = getBigUint64(_endOfDirectoryView, 32);
+                  _this.filesLength = getBigUint64(_endOfDirectoryView, 32);
                   directoryDataLength = getBigUint64(_endOfDirectoryView, 40);
                   directoryDataOffset -= directoryDataLength;
 
@@ -17719,7 +17719,7 @@
 
                             if (options.onprogress) {
                               try {
-                                options.onprogress(indexFile + 1, filesLength, new Entry(fileEntry));
+                                options.onprogress(indexFile + 1, _this.filesLength, new Entry(fileEntry));
                               } catch (error) {// ignored
                               }
                             }
@@ -17737,7 +17737,7 @@
                   indexFile = 0;
 
                 case 64:
-                  if (!(indexFile < filesLength)) {
+                  if (!(indexFile < _this.filesLength)) {
                     _context2.next = 69;
                     break;
                   }

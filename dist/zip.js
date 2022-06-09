@@ -2776,9 +2776,9 @@
 			const endOfDirectoryView = getDataView$1(endOfDirectoryInfo);
 			let directoryDataLength = getUint32(endOfDirectoryView, 12);
 			let directoryDataOffset = getUint32(endOfDirectoryView, 16);
-			let filesLength = getUint16(endOfDirectoryView, 8);
+			this.filesLength = getUint16(endOfDirectoryView, 8);
 			let prependedDataLength = 0;
-			if (directoryDataOffset == MAX_32_BITS || directoryDataLength == MAX_32_BITS || filesLength == MAX_16_BITS) {
+			if (directoryDataOffset == MAX_32_BITS || directoryDataLength == MAX_32_BITS || this.filesLength == MAX_16_BITS) {
 				const endOfDirectoryLocatorArray = await readUint8Array(reader, endOfDirectoryInfo.offset - ZIP64_END_OF_CENTRAL_DIR_LOCATOR_LENGTH, ZIP64_END_OF_CENTRAL_DIR_LOCATOR_LENGTH);
 				const endOfDirectoryLocatorView = getDataView$1(endOfDirectoryLocatorArray);
 				if (getUint32(endOfDirectoryLocatorView, 0) != ZIP64_END_OF_CENTRAL_DIR_LOCATOR_SIGNATURE) {
@@ -2798,7 +2798,7 @@
 				if (getUint32(endOfDirectoryView, 0) != ZIP64_END_OF_CENTRAL_DIR_SIGNATURE) {
 					throw new Error(ERR_EOCDR_LOCATOR_ZIP64_NOT_FOUND);
 				}
-				filesLength = getBigUint64(endOfDirectoryView, 32);
+				this.filesLength = getBigUint64(endOfDirectoryView, 32);
 				directoryDataLength = getBigUint64(endOfDirectoryView, 40);
 				directoryDataOffset -= directoryDataLength;
 			}
@@ -2821,7 +2821,7 @@
 			if (directoryDataOffset < 0 || directoryDataOffset >= reader.size) {
 				throw new Error(ERR_BAD_FORMAT);
 			}
-			for (let indexFile = 0; indexFile < filesLength; indexFile++) {
+			for (let indexFile = 0; indexFile < this.filesLength; indexFile++) {
 				const fileEntry = new ZipEntry(reader, zipReader.config, zipReader.options);
 				if (getUint32(directoryView, offset) != CENTRAL_FILE_HEADER_SIGNATURE) {
 					throw new Error(ERR_CENTRAL_DIRECTORY_NOT_FOUND);
@@ -2867,7 +2867,7 @@
 				offset = endOffset;
 				if (options.onprogress) {
 					try {
-						options.onprogress(indexFile + 1, filesLength, new Entry(fileEntry));
+						options.onprogress(indexFile + 1, this.filesLength, new Entry(fileEntry));
 					} catch (error) {
 						// ignored
 					}
