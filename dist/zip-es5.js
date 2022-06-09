@@ -13165,8 +13165,8 @@
 	  }
 
 	  _createClass(ZipReader, [{
-	    key: "getEntry",
-	    value: function getEntry() {
+	    key: "getEntriesGenerator",
+	    value: function getEntriesGenerator() {
 	      var _this = this;
 
 	      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -13445,7 +13445,7 @@
 
 	        var entries = [];
 
-	        var iter = _this3.getEntry(options);
+	        var iter = _this3.getEntriesGenerator(options);
 
 	        var curr = iter.next();
 	        return _await(_continue(_for(function () {

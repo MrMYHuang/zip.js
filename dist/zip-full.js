@@ -6977,7 +6977,7 @@
 			});
 		}
 
-		async* getEntry(options = {}) {
+		async* getEntriesGenerator(options = {}) {
 			const zipReader = this;
 			const reader = zipReader.reader;
 			if (!reader.initialized) {
@@ -7096,7 +7096,7 @@
 
 		async getEntries(options = {}) {
 			const entries = [];
-			const iter = this.getEntry(options);
+			const iter = this.getEntriesGenerator(options);
 			let curr = iter.next();
 			while(!(await curr).done) {
 				entries.push((await curr).value);
